@@ -1,5 +1,5 @@
 import {getCurrentUser} from "./getCurrentUser";
-import { db } from "@/libs/db";
+import  db  from "@/libs/db";
 
 export const getFavoriteListings = async () => {
   try {

@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/libs/auth";
 import { User } from "@prisma/client";
-import { db } from "@/libs/db";
+import  db  from "@/libs/db";
 
 export const getSession = async () => {
   return await getServerSession(authOptions);

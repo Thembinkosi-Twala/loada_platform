@@ -15,7 +15,7 @@ import Counter from "../inputs/Counter";
 import Input from "../inputs/Input";
 
 import useBookingModal from "@/hooks/useBookingModal";
-import { containers } from "@/constants"; // Assuming this is a list of containers
+import {categories } from "@/constants"; // Assuming this is a list of containers
 import { Container } from "@/types"; // Assuming this is the type for containers
 
 enum STEPS {
@@ -130,8 +130,8 @@ const BookingSlotModal = () => {
         subtitle="Choose the container you need"
       />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[210px] overflow-y-auto">
-        {containers && containers.length > 0 ? (
-          containers.map((item: Container) => (
+        {categories && categories.length > 0 ? (
+          categories.map((item: categories) => (
             <div key={item.label} className="col-span-1">
               <ContainerSelect
                 onClick={() => setCustomValue("container", item.value)}
