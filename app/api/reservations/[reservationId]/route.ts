@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
 import { getCurrentUser } from "@/actions/getCurrentUser";
-import { db } from "@/libs/db";
+import  db  from "@/libs/db";
 
 interface IParams {
-  reservationId?: string;
+  containerId?: string;
 }
 
 export const DELETE = async (req: Request, { params }: { params: IParams }) => {
@@ -11,14 +11,14 @@ export const DELETE = async (req: Request, { params }: { params: IParams }) => {
 
   if (!currentUser) return NextResponse.error();
 
-  const { reservationId } = params;
+  const { containerId } = params;
 
-  if (!reservationId || typeof reservationId !== "string")
+  if (!containerId || typeof containerId !== "string")
     throw new Error("Invalid ID");
 
-  const reservation = await db.reservation.deleteMany({
+  const reservation = await db.container.deleteMany({
     where: {
-      id: reservationId,
+      id: containerId,
       OR: [{ userId: currentUser.id }, { listing: { userId: currentUser.id } }],
     },
   });

@@ -1,24 +1,22 @@
 "use client";
 
+import { useState } from "react";
+import { signIn } from "next-auth/react";
 import axios from "axios";
-import { AiFillGithub } from "react-icons/ai";
-import { FcGoogle } from "react-icons/fc";
-import { useCallback, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
 
-import useRegisterModal from "../../hooks/useRegisterModal";
 import Modal from "./Modal";
 import Heading from "../Heading";
-import Input from "../inputs/Input";
-import { toast } from "react-hot-toast";
 import Button from "../Button";
-import { signIn } from "next-auth/react";
-import useLoginModal from "../../hooks/useLoginModal";
+import Input from "../inputs/Input";
+import useRegisterModal from "@/hooks/useRegisterModal";
+import useLoginModal from "@/hooks/useLoginModal";
 
 const RegisterModal = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
-  const [isLoading, setIsLoading] = useState(false);
 
   const {
     register,
@@ -38,26 +36,26 @@ const RegisterModal = () => {
     axios
       .post("/api/register", data)
       .then(() => {
-        toast.success("Account created successfully");
         registerModal.onClose();
         loginModal.onOpen();
+        toast.success("success");
       })
-      .catch((err) => {
-        toast.error("Something went wrong");
+      .catch((error) => {
+        toast.error("Something went wrong!");
       })
       .finally(() => {
         setIsLoading(false);
       });
   };
 
-  const toggle = useCallback(() => {
+  const onToggle = () => {
     registerModal.onClose();
     loginModal.onOpen();
-  }, [loginModal, registerModal]);
+  }
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
-      <Heading title="Welcome to Airbnb" subtitle="Create an account" />
+      <Heading title="Welcome to Loada" subtitle="Create an account!" />
       <Input
         id="email"
         label="Email"
@@ -75,9 +73,89 @@ const RegisterModal = () => {
         required
       />
       <Input
+        id="companyName"
+        label="Company Name"
+        disabled={isLoading}
+        register={register}
+        errors={errors}
+        required
+      />
+      <Input
+        id="businessRegistrationNumber"
+        label="Business Registration Number"
+        disabled={isLoading}
+        register={register}
+        errors={errors}
+        required
+      />
+      <Input
+        id="physicalAddress"
+        label="Physical Address"
+        disabled={isLoading}
+        register={register}
+        errors={errors}
+        required
+      />
+      <Input
+        id="contactPersonName"
+        label="Contact Person Name"
+        disabled={isLoading}
+        register={register}
+        errors={errors}
+        required
+      />
+      <Input
+        id="contactPersonEmail"
+        label="Contact Person Email"
+        disabled={isLoading}
+        register={register}
+        errors={errors}
+        required
+      />
+      <Input
+        id="contactPersonPhone"
+        label="Contact Person Phone"
+        disabled={isLoading}
+        register={register}
+        errors={errors}
+        required
+      />
+      <Input
+        id="bankDetails.accountHolderName"
+        label="Account Holder Name"
+        disabled={isLoading}
+        register={register}
+        errors={errors}
+        required
+      />
+      <Input
+        id="bankDetails.bankName"
+        label="Bank Name"
+        disabled={isLoading}
+        register={register}
+        errors={errors}
+        required
+      />
+      <Input
+        id="bankDetails.accountNumber"
+        label="Account Number"
+        disabled={isLoading}
+        register={register}
+        errors={errors}
+        required
+      />
+      <Input
+        id="bankDetails.branchCode"
+        label="Branch Code"
+        disabled={isLoading}
+        register={register}
+        errors={errors}
+        required
+      />
+      <Input
         id="password"
-        type="password"
         label="Password"
+        type="password"
         disabled={isLoading}
         register={register}
         errors={errors}
@@ -89,52 +167,44 @@ const RegisterModal = () => {
   const footerContent = (
     <div className="flex flex-col gap-4 mt-3">
       <hr />
-      <Button
-        outline
-        label="Continue with Google"
-        icon={FcGoogle}
-        onClick={() => signIn("google")}
-      />
-      <Button
-        outline
-        label="Continue with Github"
-        icon={AiFillGithub}
-        onClick={() => signIn("github")}
-      />
+    
       <div
         className="
-					text-neutral-500
-					text-center
-					mt-4
-					font-light
-				"
+          text-neutral-500 
+          text-center 
+          mt-4 
+          font-light
+        "
       >
-        <div className="justify-center flex flex-row items-center gap-2">
-          <div>Already have an account?</div>
-          <div
-            onClick={toggle}
+        <p>
+          Already have an account?
+          <span
+            onClick={onToggle}
             className="
-							text-neutral-800
-							cursor-pointer
-							hover:underline
-						"
+              text-neutral-800
+              cursor-pointer 
+              hover:underline
+            "
           >
+            {" "}
             Log in
-          </div>
-        </div>
+          </span>
+        </p>
       </div>
     </div>
   );
+
   return (
     <Modal
       disabled={isLoading}
       isOpen={registerModal.isOpen}
-      title="Register"
+      title="Register | Loada Plartform"
       actionLabel="Continue"
       onClose={registerModal.onClose}
       onSubmit={handleSubmit(onSubmit)}
-      body={bodyContent}
+      secondaryActionLabel={""}
       footer={footerContent}
+      body={bodyContent}
     />
   );
 };

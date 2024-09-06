@@ -6,7 +6,6 @@ import "react-loading-skeleton/dist/skeleton.css";
 import Navbar from "@/components/navbar/Navbar";
 import RegisterModal from "@/components/modals/RegisterModal";
 import LoginModal from "@/components/modals/LoginModal";
-import BookingSlotModal from "@/components/modals/BookingSlotModal";
 import SearchModal from "@/components/modals/SearchModal";
 import ToasterProvider from "@/providers/ToasterProvider";
 import QueryProvider from "@/providers/QueryProvider";
@@ -38,7 +37,6 @@ export default async function RootLayout({
             <SearchModal />
           </Suspense>
           <RegisterModal />
-          <BookingSlotModal />
           <LoginModal />
           <Navbar currentUser={currentUser} />
           <main className="pb-20 md:pt-28 pt-24">{children}</main>

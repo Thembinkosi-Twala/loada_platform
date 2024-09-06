@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getCurrentUser } from "@/actions/getCurrentUser";
-import { db } from "@/libs/db";
+import db from "@/libs/db";
 
 interface IParams {
   listingId?: string;
@@ -22,12 +22,11 @@ export async function DELETE(
     throw new Error('Invalid ID');
   }
 
-  const listing = await db.listing.deleteMany({
+  const containers = await db.container.deleteMany({
     where: {
       id: listingId,
-      userId: currentUser.id
     }
   });
 
-  return NextResponse.json(listing);
+  return NextResponse.json(containers);
 }

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { toast } from "react-hot-toast";
-import { User, Reservation, Listing } from "@prisma/client";
+import { User, Booking, container } from "@prisma/client";
 
 import Container from "@/components/Container";
 import Heading from "@/components/Heading";
