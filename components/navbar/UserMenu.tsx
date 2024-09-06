@@ -55,7 +55,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
           className="hidden md:block text-sm font-bold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer text-[#585858]"
           onClick={onRent}
         >
-          InterDevTech
+          Loada Login Here!
         </div>
 
         <div
@@ -64,7 +64,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
         >
           <AiOutlineMenu />
           <div className="hidden md:block">
-            <Avatar src={currentUser?.image} />
+            
           </div>
         </div>
       </div>
