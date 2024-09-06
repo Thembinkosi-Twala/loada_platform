@@ -11,24 +11,6 @@ const PropertiesPage = async () => {
     return <EmptyState title="Unauthorized" subtitle="Please login" />;
   }
   
-  const properties = await db.listing.findMany({
-    where: {
-      userId: currentUser.id
-    }
-  })
-
-  if (!properties || properties.length === 0) {
-    return (
-      <EmptyState
-        title="No properties found"
-        subtitle="Looks like you have no properties."
-      />
-    );
-  }
-
-  return (
-    <PropertiesClient currentUser={currentUser} properties={properties || []} />
-  );
 };
 
 export default PropertiesPage;
