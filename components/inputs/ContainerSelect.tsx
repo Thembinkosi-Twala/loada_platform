@@ -1,9 +1,5 @@
 "use client";
 import React from "react";
-import Select from "react-select";
-import { useQuery } from "@tanstack/react-query";
-import { getContainers } from "@/actions/getContainers"; // Ensure this path is correct
-import Skeleton from "react-loading-skeleton";
 
 // Define the type for the container select option
 export type ContainerSelectValue = {

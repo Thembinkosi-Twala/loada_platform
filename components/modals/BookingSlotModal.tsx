@@ -129,22 +129,7 @@ const BookingSlotModal = () => {
         title="Select Container Type"
         subtitle="Choose the container you need"
       />
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[210px] overflow-y-auto">
-        {categories && categories.length > 0 ? (
-          categories.map((item: categories) => (
-            <div key={item.label} className="col-span-1">
-              <ContainerSelect
-                onClick={() => setCustomValue("container", item.value)}
-                selected={container === item.label}
-                label={item.label}
-                icon={item.icon}
-              />
-            </div>
-          ))
-        ) : (
-          <div>No containers available</div>
-        )}
-      </div>
+     
     </div>
   );
 
@@ -155,10 +140,7 @@ const BookingSlotModal = () => {
           title="Select Pickup Date"
           subtitle="When do you need the container?"
         />
-        <DatePicker
-          selectedDate={pickupDate}
-          onChange={(date: any) => setCustomValue("pickupDate", date)}
-        />
+       
       </div>
     );
   }

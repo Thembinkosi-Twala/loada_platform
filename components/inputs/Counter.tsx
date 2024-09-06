@@ -21,7 +21,6 @@ const Counter: React.FC<CounterProps> = ({
     onChange(value - 1)
   }
 
-
   return (
     <div className="flex flex-row items-center justify-between">
       <div className="flex flex-col">
