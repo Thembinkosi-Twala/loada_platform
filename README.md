@@ -3,40 +3,7 @@
 
 Built with Next.js, TypeScript, Tailwind CSS, MongoDB, Prisma, Next auth, Leaflet and many other technologies.
 
-## Features
-
-- User registration and authentication
-- Property listing and browsing
-- Property booking and reservations
-- Search and filtering of properties
-- Interactive map using Leaflet to display property locations
-
-## Demo
-
-You can check the a live demo of the project [here](https://inter-dev-tech-final.vercel.app/).
-  
-
-## Prerequisites
-
-Make sure you have the following software installed on your system:
-
-- git If you want to clone the project from GitHub and work with it locally, you will need to have Git installed on your system. You can download and install Git from the official website (https://git-scm.com/).
-
-- Node.js Application requires Node.js to be installed on your system in order to run. You can download and install the latest version of Node.js from the official website (https://nodejs.org/).
-
 ## Installation
-
-- Clone the repository:
-
-    ```
-    git clone 
-    ```
--  Navigate to the project directory:
-
-    ```
-    cd interdevtechfinal
-    ```
--  Install the dependencies:
 
     ```
     npm install
@@ -84,5 +51,5 @@ prisma migrate dev
 # Run Prisma db push to push the Prisma schema to your MongoDB Atlas database
 prisma db push
 
-# cmd 
+# cmd if you have any problems
 Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted

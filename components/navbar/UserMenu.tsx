@@ -55,7 +55,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
           className="hidden md:block text-sm font-bold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer text-[#585858]"
           onClick={onRent}
         >
-          Loada Login Here!
+          Login Here!
         </div>
 
         <div
@@ -63,14 +63,11 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
           onClick={open}
         >
           <AiOutlineMenu />
-          <div className="hidden md:block">
-            
-          </div>
+          <div className="hidden md:block"></div>
         </div>
       </div>
 
       <AnimatePresence>
-
         {isOpen && (
           <motion.div
             variants={zoomIn(0.85, 0.175)}
@@ -88,20 +85,31 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
             <div className="flex flex-col cursor-pointer">
               {currentUser ? (
                 <>
-                  <MenuItem label="My trips" onClick={() => navigate("/trips")} />
                   <MenuItem
-                    label="My favorites"
-                    onClick={() => navigate("/favorites")}
+                    label="shippings"
+                    onClick={() => navigate("/shipping")}
                   />
                   <MenuItem
-                    label="My reservations"
-                    onClick={() => navigate("/reservations")}
+                    label="Containers"
+                    onClick={() => navigate("/container-management")}
                   />
                   <MenuItem
-                    label="My properties"
-                    onClick={() => navigate("/properties")}
+                    label="Bookings"
+                    onClick={() => navigate("/booking-slots")}
                   />
-                  <MenuItem label="Host your home" onClick={onRent} />
+                  <MenuItem
+                    label="Trucks"
+                    onClick={() => navigate("/truck-management")}
+                  />
+                  <MenuItem
+                    label="cargo-tracking"
+                    onClick={() => navigate("/cargo-tracking")}
+                  />
+                  <MenuItem
+                    label="fleet"
+                    onClick={() => navigate("/fleet-management")}
+                  />
+                  <MenuItem label="book your slot" onClick={onRent} />
                   <hr />
                   <MenuItem label="Logout" onClick={() => signOut()} />
                 </>

@@ -12,15 +12,15 @@ export async function POST(request: Request) {
   data: {
     email,
     name,
-   companyName: '', // Add this
-    businessRegistrationNumber: '', // Add this
-    physicalAddress: '', // Add this
-    contactPersonName: '', // Add this
-    contactPersonEmail: '', // Add this
-    contactPersonPhone: '', // Add this
-    bankDetails: {}, // Add this
+   companyName: '', 
+    businessRegistrationNumber: '', 
+    physicalAddress: '', 
+    contactPersonName: '', 
+    contactPersonEmail: '', 
+    contactPersonPhone: '',
+    bankDetails: {},
     password: hashedPassword,
-    isAdmin: false, // Add this
+    isAdmin: false, 
   },
 })
 

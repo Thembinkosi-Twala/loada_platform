@@ -2,14 +2,11 @@ import { TbBox } from "react-icons/tb";
 import {
   GiCalendar,
   GiTruck,
-  GiCastle,
   GiDeliveryDrone,
 } from "react-icons/gi";
 import { FaShippingFast, FaTruckMoving, FaWarehouse } from "react-icons/fa";
 import { IoMdBuild } from "react-icons/io";
 import Link from "next/link";
-
-// Categories with sorted and consistent href links
 export const categories = [
   {
     label: "Container Management",
