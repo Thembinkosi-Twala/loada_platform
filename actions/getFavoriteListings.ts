@@ -9,15 +9,7 @@ export const getFavoriteListings = async () => {
       return [];
     }
 
-    const favorites = await db.listing.findMany({
-      where: {
-        id: {
-          in: [...(currentUser.favoriteIds || [])]
-        }
-      }
-    });
-
-    return JSON.parse(JSON.stringify(favorites));
+  
   } catch (error: any) {
     throw new Error(error);
   }
