@@ -16,12 +16,7 @@ export const DELETE = async (req: Request, { params }: { params: IParams }) => {
   if (!containerId || typeof containerId !== "string")
     throw new Error("Invalid ID");
 
-  const reservation = await db.container.deleteMany({
-    where: {
-      id: containerId,
-      OR: [{ userId: currentUser.id }, { listing: { userId: currentUser.id } }],
-    },
-  });
+
 
   return NextResponse.json({ status: "success" });
 };
