@@ -6,10 +6,8 @@ import { formatISO } from "date-fns";
 import { Range } from "react-date-range";
 import { useRouter, useSearchParams } from "next/navigation";
 import queryString from "query-string";
-
 import Modal from "./Modal";
 import Calendar from "../inputs/Calendar";
-import { CountrySelectValue } from "../inputs/CountrySelect";
 import Heading from "../Heading";
 import CountrySelect from "../inputs/CountrySelect";
 import Counter from "../inputs/Counter";
@@ -28,9 +26,6 @@ const SearchModal = () => {
   const params = useSearchParams();
 
   const [step, setStep] = useState(STEPS.PICKUP);
-  const [pickupLocation, setPickupLocation] = useState<CountrySelectValue>();
-  const [deliveryLocation, setDeliveryLocation] =
-    useState<CountrySelectValue>();
   const [cargoWeight, setCargoWeight] = useState(1);
   const [cargoVolume, setCargoVolume] = useState(1);
   const [dateRange, setDateRange] = useState<Range>({
@@ -39,13 +34,7 @@ const SearchModal = () => {
     key: "selection",
   });
 
-  const Map = useMemo(
-    () =>
-      dynamic(() => import("../Map"), {
-        ssr: false,
-      }),
-    [pickupLocation, deliveryLocation]
-  );
+
 
   const onNext = () => {
     setStep((value) => value + 1);
@@ -66,8 +55,6 @@ const SearchModal = () => {
 
     const updatedQuery: any = {
       ...currentQuery,
-      pickupLocation: pickupLocation?.label,
-      deliveryLocation: deliveryLocation?.label,
       cargoWeight,
       cargoVolume,
     };
@@ -113,12 +100,7 @@ const SearchModal = () => {
         title="Where is the pickup location?"
         subtitle="Specify where your cargo will be picked up."
       />
-      <CountrySelect
-        value={pickupLocation}
-        onChange={(value) => setPickupLocation(value as CountrySelectValue)}
-      />
-      <hr />
-      <Map center={pickupLocation?.latlng} />
+      
     </div>
   );
 
@@ -129,12 +111,7 @@ const SearchModal = () => {
           title="Where is the delivery location?"
           subtitle="Specify where your cargo will be delivered."
         />
-        <CountrySelect
-          value={deliveryLocation}
-          onChange={(value) => setDeliveryLocation(value as CountrySelectValue)}
-        />
-        <hr />
-        <Map center={deliveryLocation?.latlng} />
+        
       </div>
     );
   }
