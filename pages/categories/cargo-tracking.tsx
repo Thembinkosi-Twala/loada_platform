@@ -17,7 +17,9 @@ const CargoTrackingPage: React.FC<Props> = ({ category }) => {
     return (
       <div className="p-4">
         <h1 className="text-2xl font-bold">Category Not Found</h1>
-        <p className="mt-2">The category you're looking for does not exist.</p>
+        <p className="mt-2">
+          The category you&apos;re looking for does not exist.
+        </p>
       </div>
     );
   }
