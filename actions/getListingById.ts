@@ -12,9 +12,7 @@ export const getListingById = async (params: IParams) => {
       where: {
         id: listingId,
       },
-      include: {
-        user: true,
-      },
+    
     });
 
     if (!listing) {
