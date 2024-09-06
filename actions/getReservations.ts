@@ -1,4 +1,4 @@
-import { db } from "@/libs/db";
+import db from "@/libs/db";
 
 interface IParams {
   listingId?: string;
@@ -26,17 +26,17 @@ export const getReservations = async (
       query.listing = { userId: authorId };
     }
 
-    const reservations = await db.reservation.findMany({
+    const bookings = await db.booking.findMany({
       where: query,
       include: {
-        listing: true
+        container: true
       },
       orderBy: {
         createdAt: 'desc'
       }
     });
 
-    return JSON.parse(JSON.stringify(reservations))
+    return JSON.parse(JSON.stringify(bookings))
   } catch (error: any) {
     throw new Error(error);
   }

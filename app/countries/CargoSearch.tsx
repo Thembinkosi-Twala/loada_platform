@@ -30,15 +30,6 @@ const CargoSearch = () => {
         onChange={(e) => setSize(e.target.value)}
       />
       <button onClick={handleSearch}>Search</button>
-
-      <ul>
-        {results.map((cargo) => (
-          <li key={cargo.id}>
-            <p>Container Number: {cargo.containerNumber}</p>
-            <p>Size: {cargo.size}</p>
-          </li>
-        ))}
-      </ul>
     </div>
   );
 };

@@ -1,6 +1,6 @@
 // pages/api/containers.ts
 import { NextApiRequest, NextApiResponse } from "next";
-import prisma from "../../prisma";
+import prisma from "@/prisma/schema.prisma";
 import { LISTINGS_BATCH } from "@/constants";
 
 const getContainers = async (req: NextApiRequest, res: NextApiResponse) => {

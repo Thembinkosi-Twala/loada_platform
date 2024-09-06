@@ -1,7 +1,7 @@
 // app/countries/route.ts
 
 import { NextResponse } from "next/server";
-import { db } from "@/libs/db";
+import  db  from "@/libs/db";
 
 interface IParams {
   containerNumber?: string;
