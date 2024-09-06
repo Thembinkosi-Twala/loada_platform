@@ -38,11 +38,8 @@ const CargoTrackingPage: React.FC<Props> = ({ category }) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { category } = context.query;
 
-  const selectedCategory =
-    categories.find(
-      (cat) => cat.label.toLowerCase().replace(/\s+/g, "-") === category
-    ) || null;
-
+const selectedCategory =
+  categories.find((cat) => cat.href === category) || null;
   return {
     props: {
       category: selectedCategory,
