@@ -19,7 +19,7 @@ const Listings: FC<ListingsProps> = ({ currentUser }) => {
   return (
     <div className="flex-grow p-4">
       <div className="mb-4">
-        <h1 className="text-2xl font-bold mb-2">Dashboard</h1>
+        {/* <h1 className="text-2xl font-bold mb-2">Dashboard</h1> */}
         {currentUser ? (
           <div className="flex items-center space-x-2">
             <p className="text-lg font-medium">Welcome,</p>
