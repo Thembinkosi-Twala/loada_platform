@@ -5,6 +5,7 @@ import axios from "axios";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
+import { signIn } from "next-auth/react";
 import Modal from "./Modal";
 import Heading from "../Heading";
 import Button from "../Button";
