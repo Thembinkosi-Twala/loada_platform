@@ -11,10 +11,10 @@ import ToasterProvider from "@/providers/ToasterProvider";
 import QueryProvider from "@/providers/QueryProvider";
 import { getCurrentUser } from "@/actions/getCurrentUser";
 
+
 export const metadata = {
   title: "Loada Platform",
-  description:
-    "The loada Platform",
+  description: "The Loada Platform",
 };
 
 const font = Nunito({
@@ -39,7 +39,14 @@ export default async function RootLayout({
           <RegisterModal />
           <LoginModal />
           <Navbar currentUser={currentUser} />
-          <main className="pb-20 md:pt-28 pt-24">{children}</main>
+          <div className="flex">
+            {/* Sidebar remains fixed */}
+            {/* <Sidebar /> */}
+            {/* Page content renders dynamically here */}
+            <main className="flex-grow p-4 md:pt-28 pt-24 overflow-auto">
+              {children}
+            </main>
+          </div>
         </QueryProvider>
       </body>
     </html>

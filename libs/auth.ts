@@ -3,7 +3,7 @@ import { AuthOptions } from "next-auth";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
-import  db  from "./db";
+import db from "./db";
 
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(db),
@@ -15,39 +15,38 @@ export const authOptions: AuthOptions = {
     CredentialsProvider({
       name: "credentials",
       credentials: {
-        email: { label: "email", type: "text" },
-        password: {
-          label: "password",
-          type: "password",
-        },
+        email: { label: "Email", type: "text", placeholder: "your-email@example.com" },
+        password: { label: "Password", type: "password" },
       },
 
       async authorize(credentials) {
+        // Ensure email and password are provided
         if (!credentials?.email || !credentials?.password) {
-          throw new Error("Invalid credentials");
+          throw new Error("Please enter both email and password.");
         }
 
+        // Check if user exists
         const user = await db.user.findUnique({
-          where: {
-            email: credentials.email,
-          },
+          where: { email: credentials.email },
         });
 
-        if (!user || !user?.password) throw new Error("Invalid credentials");
+        if (!user) {
+          throw new Error("No user found with that email.");
+        }
 
-        const isCorrectPassword = await bcrypt.compare(
-          credentials.password,
-          user.password
-        );
+        // Check if password matches
+        const isCorrectPassword = await bcrypt.compare(credentials.password, user.password);
+        if (!isCorrectPassword) {
+          throw new Error("Incorrect password.");
+        }
 
-        if (!isCorrectPassword) throw new Error("Invalid credentials");
-
+        // Return user data if credentials are valid
         return user;
       },
     }),
   ],
   pages: {
-    signIn: "/", 
+    signIn: "/", // Redirect to the main page if login fails
   },
   session: {
     strategy: "jwt",

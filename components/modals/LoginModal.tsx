@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { FcGoogle } from "react-icons/fc";
 import { signIn } from "next-auth/react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
@@ -31,30 +32,31 @@ const LoginModal = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setIsLoading(true);
-    signIn(`credentials`, {
+
+    const result = await signIn("credentials", {
       ...data,
       redirect: false,
-    }).then((callback) => {
-      setIsLoading(false);
-
-      if (callback?.error) {
-        toast.error(callback.error);
-        return;
-      }
-
-      if (callback?.ok) {
-        toast.success("Logged in successful!");
-        loginModal.onClose();
-        router.refresh();
-      }
     });
+
+    setIsLoading(false);
+
+    if (result?.error) {
+      toast.error(result.error); // Display error if any
+      return;
+    }
+
+    if (result?.ok) {
+      toast.success("Logged in successfully!");
+      loginModal.onClose();
+      router.refresh(); // Refresh page after login
+    }
   };
 
   const onToggle = () => {
     loginModal.onClose();
-    registerModal.onOpen();
+    registerModal.onOpen(); // Switch to register modal
   };
 
   const bodyContent = (
@@ -83,19 +85,18 @@ const LoginModal = () => {
   const footerContent = (
     <div className="flex flex-col gap-4 mt-3">
       <hr />
-      <div
-        className="
-    text-neutral-500 text-center mt-4 font-light"
-      >
+      <Button
+        outline
+        label="Continue with Google"
+        icon={FcGoogle}
+        onClick={() => signIn("google")}
+      />
+      <div className="text-neutral-500 text-center mt-4 font-light">
         <p>
           First time using loada?
           <span
             onClick={onToggle}
-            className="
-            text-neutral-800
-            cursor-pointer 
-            hover:underline
-          "
+            className="text-neutral-800 cursor-pointer hover:underline"
           >
             {" "}
             Create an account

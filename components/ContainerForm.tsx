@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Container } from "@prisma/client";
 
 const ContainerForm = () => {
-    const [container, setContainer] = useState<Container>({
-    id:"",
+  const [container, setContainer] = useState<Container>({
+    id: "",
     containerNumber: "",
     size: "",
     type: "",
@@ -13,6 +13,16 @@ const ContainerForm = () => {
 
   const handleSubmit = async (event: { preventDefault: () => void; }) => {
     event.preventDefault();
+    if (
+      !container.containerNumber ||
+      !container.size ||
+      !container.type ||
+      !container.status ||
+      !container.location
+    ) {
+      alert("Please fill in all fields");
+      return;
+    }
     // Call API to create a new container
     const response = await fetch("/api/containers", {
       method: "POST",
@@ -23,6 +33,15 @@ const ContainerForm = () => {
     });
     const data = await response.json();
     console.log(data);
+    // Reset form fields after submission
+    setContainer({
+      id: "",
+      containerNumber: "",
+      size: "",
+      type: "",
+      status: "",
+      location: "",
+    });
   };
 
   return (

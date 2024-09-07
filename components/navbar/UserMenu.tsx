@@ -86,30 +86,25 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
               {currentUser ? (
                 <>
                   <MenuItem
-                    label="shippings"
-                    onClick={() => navigate("/shipping")}
+                    label="My shippings"
+                    onClick={() => navigate("/")}
                   />
                   <MenuItem
-                    label="Containers"
-                    onClick={() => navigate("/container-management")}
+                    label="My Containers"
+                    onClick={() => navigate("/")}
                   />
                   <MenuItem
-                    label="Bookings"
-                    onClick={() => navigate("/booking-slots")}
+                    label="My Bookings"
+                    onClick={() => navigate("/")}
                   />
                   <MenuItem
-                    label="Trucks"
-                    onClick={() => navigate("/truck-management")}
+                    label="My Trucks"
+                    onClick={() => navigate("/")}
                   />
                   <MenuItem
-                    label="cargo-tracking"
-                    onClick={() => navigate("/cargo-tracking")}
+                    label="My Profile"
+                    onClick={() => navigate("/")}
                   />
-                  <MenuItem
-                    label="fleet"
-                    onClick={() => navigate("/fleet-management")}
-                  />
-                  <MenuItem label="book your slot" onClick={onRent} />
                   <hr />
                   <MenuItem label="Logout" onClick={() => signOut()} />
                 </>

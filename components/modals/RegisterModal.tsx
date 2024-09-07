@@ -1,11 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { signIn } from "next-auth/react";
 import axios from "axios";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
-
+import { FcGoogle } from "react-icons/fc";
 import Modal from "./Modal";
 import Heading from "../Heading";
 import Button from "../Button";
@@ -27,6 +26,16 @@ const RegisterModal = () => {
       name: "",
       email: "",
       password: "",
+      companyName: "",
+      businessRegistrationNumber: "",
+      physicalAddress: "",
+      contactPersonName: "",
+      contactPersonEmail: "",
+      contactPersonPhone: "",
+      "bankDetails.accountHolderName": "",
+      "bankDetails.bankName": "",
+      "bankDetails.accountNumber": "",
+      "bankDetails.branchCode": "",
     },
   });
 
@@ -34,24 +43,26 @@ const RegisterModal = () => {
     setIsLoading(true);
 
     axios
-      .post("/api/register", data)
+      .post("/api/reg", data)
       .then(() => {
+        toast.success("Registration successful");
         registerModal.onClose();
         loginModal.onOpen();
-        toast.success("success");
       })
       .catch((error) => {
+        console.error("API error:", error.response?.data || error.message); // Log detailed error
         toast.error("Something went wrong!");
       })
       .finally(() => {
         setIsLoading(false);
       });
+
   };
 
   const onToggle = () => {
     registerModal.onClose();
     loginModal.onOpen();
-  }
+  };
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
@@ -167,24 +178,18 @@ const RegisterModal = () => {
   const footerContent = (
     <div className="flex flex-col gap-4 mt-3">
       <hr />
-    
-      <div
-        className="
-          text-neutral-500 
-          text-center 
-          mt-4 
-          font-light
-        "
-      >
+      <Button
+        outline
+        label="Continue with Google"
+        icon={FcGoogle}
+        onClick={() => signIn("google")}
+      />
+      <div className="text-neutral-500 text-center mt-4 font-light">
         <p>
           Already have an account?
           <span
             onClick={onToggle}
-            className="
-              text-neutral-800
-              cursor-pointer 
-              hover:underline
-            "
+            className="text-neutral-800 cursor-pointer hover:underline"
           >
             {" "}
             Log in
@@ -198,11 +203,10 @@ const RegisterModal = () => {
     <Modal
       disabled={isLoading}
       isOpen={registerModal.isOpen}
-      title="Register | Loada Plartform"
+      title="Register | Loada Platform"
       actionLabel="Continue"
       onClose={registerModal.onClose}
       onSubmit={handleSubmit(onSubmit)}
-      secondaryActionLabel={""}
       footer={footerContent}
       body={bodyContent}
     />

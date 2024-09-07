@@ -1,35 +1,9 @@
-"use client";
-import React, { useState, useEffect } from "react";
-
-// Mock function to simulate real-time updates (In actual implementation, use WebSockets or a similar method)
-const getRealTimeUpdates = () => {
-  return [
-    {
-      id: 1,
-      name: "Container A",
-      status: "Available",
-      slot: "Slot 1",
-      tracking: true,
-    },
-    {
-      id: 2,
-      name: "Container B",
-      status: "In Use",
-      slot: "Slot 2",
-      tracking: false,
-    },
-    {
-      id: 3,
-      name: "Container C",
-      status: "Delayed",
-      slot: "Slot 3",
-      tracking: true,
-    },
-  ];
-};
+import { useEffect, useState } from "react";
+import { Container } from "@prisma/client";
+import ContainerForm from "@/components/ContainerForm";
 
 const ContainerManagement = () => {
-  const [containers, setContainers] = useState<any[]>([]);
+  const [containers, setContainers] = useState<Container[]>([]);
   const [newContainerName, setNewContainerName] = useState("");
   const [newContainerStatus, setNewContainerStatus] = useState("");
   const [availableSlots, setAvailableSlots] = useState([
@@ -40,145 +14,143 @@ const ContainerManagement = () => {
   const [newSlot, setNewSlot] = useState("");
 
   useEffect(() => {
-    // Fetch real-time updates every 5 seconds
-    const interval = setInterval(() => {
+    const fetchContainers = async () => {
       try {
-        const updates = getRealTimeUpdates();
-        setContainers(updates);
+        const response = await fetch("/api/getContainers");
+        const data = await response.json();
+        setContainers(data);
       } catch (error) {
-        console.error("Failed to fetch real-time updates", error);
+        console.error("Failed to fetch containers:", error);
       }
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const handleAddContainer = (e: React.FormEvent) => {
-    e.preventDefault();
-    const newContainer = {
-      id: Date.now(), // Generate a unique ID based on the current time
-      name: newContainerName,
-      status: newContainerStatus,
-      slot: newSlot,
-      tracking: false,
     };
 
-    setContainers((prevContainers) => [...prevContainers, newContainer]);
-    setNewContainerName("");
-    setNewContainerStatus("");
-    setNewSlot("");
+    fetchContainers();
+  }, []);
+
+  const handleAddContainer = async (event: React.FormEvent) => {
+    event.preventDefault();
+    try {
+      const response = await fetch("/api/getContainers", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          containerNumber: newContainerName,
+          status: newContainerStatus,
+          location: newSlot,
+        }),
+      });
+      const data = await response.json();
+      setContainers([...containers, data]);
+      setNewContainerName("");
+      setNewContainerStatus("");
+      setNewSlot("");
+    } catch (error) {
+      console.error("Failed to add container:", error);
+    }
+  };
+  const handleEditContainer = (container: { id: string; containerNumber: string; size: string; type: string; status: string; location: string; }) => {
+    // Navigate to edit page or open edit modal with container data
+    console.log("Edit container:", container);
   };
 
-  const handleReallocateSlot = (containerId: number) => {
-    const updatedContainers = containers.map((container) =>
-      container.id === containerId
-        ? { ...container, slot: "Reallocated Slot", status: "Reallocated" }
-        : container
-    );
-    setContainers(updatedContainers);
+  const handleDeleteContainer = async (id: string) => {
+    try {
+      const response = await fetch(`/api/containers/${id}`, {
+        method: "DELETE",
+      });
+      if (response.ok) {
+        // Update containers state to reflect deletion
+        setContainers(containers.filter((container) => container.id !== id));
+      }
+    } catch (error) {
+      console.error("Failed to delete container:", error);
+    }
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Container Management</h1>
-
-      <div className="mb-6">
-        <h2 className="text-lg font-semibold mb-2">
-          Real-Time Container Updates
-        </h2>
-        <ul className="list-disc ml-5">
-          {containers.length > 0 ? (
-            containers.map((container) => (
-              <li key={container.id}>
-                <strong>{container.name}</strong> - {container.status}
-                {container.slot && ` (Slot: ${container.slot})`}
-                {container.tracking && " - Tracking Enabled"}
-                {container.status === "Delayed" && (
-                  <button
-                    className="ml-4 text-sm text-blue-500"
-                    onClick={() => handleReallocateSlot(container.id)}
-                  >
-                    Reallocate Slot
+    <div>
+      <h1>Container Management</h1>
+      <ContainerForm />
+      <h2>Current Containers</h2>
+      {containers.length === 0 ? (
+        <p>No containers found</p>
+      ) : (
+        <table>
+          <thead>
+            <tr>
+              <th>Container Number</th>
+              <th>Status</th>
+              <th>Location</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {containers.map((container) => (
+              <tr key={container.id}>
+                <td>{container.containerNumber}</td>
+                <td>{container.status}</td>
+                <td>{container.location}</td>
+                <td>
+                  <button onClick={() => handleEditContainer(container)}>
+                    Edit
                   </button>
-                )}
-              </li>
-            ))
-          ) : (
-            <p>No containers available.</p>
-          )}
-        </ul>
-      </div>
-
-      <div className="mb-6">
-        <h2 className="text-lg font-semibold mb-2">Add New Container</h2>
-        <form onSubmit={handleAddContainer} className="space-y-4">
-          <div>
-            <label
-              htmlFor="containerName"
-              className="block text-sm font-medium"
-            >
-              Container Name
-            </label>
-            <input
-              type="text"
-              id="containerName"
-              className="border rounded-lg w-full p-2"
-              value={newContainerName}
-              onChange={(e) => setNewContainerName(e.target.value)}
-              required
-            />
-          </div>
-
-          <div>
-            <label
-              htmlFor="containerStatus"
-              className="block text-sm font-medium"
-            >
-              Status
-            </label>
-            <select
-              id="containerStatus"
-              className="border rounded-lg w-full p-2"
-              value={newContainerStatus}
-              onChange={(e) => setNewContainerStatus(e.target.value)}
-              required
-            >
-              <option value="">Select Status</option>
-              <option value="Available">Available</option>
-              <option value="In Use">In Use</option>
-              <option value="Delayed">Delayed</option>
-              <option value="Maintenance">Maintenance</option>
-            </select>
-          </div>
-
-          <div>
-            <label htmlFor="slot" className="block text-sm font-medium">
-              Slot Allocation
-            </label>
-            <select
-              id="slot"
-              className="border rounded-lg w-full p-2"
-              value={newSlot}
-              onChange={(e) => setNewSlot(e.target.value)}
-              required
-            >
-              <option value="">Select Slot</option>
-              {availableSlots.map((slot) => (
-                <option key={slot} value={slot}>
-                  {slot}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <button
-            type="submit"
-            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition"
-          >
-            Add Container
-          </button>
-        </form>
-      </div>
+                  <button onClick={() => handleDeleteContainer(container.id)}>
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+      <style jsx>{`
+        table {
+          width: 100%;
+          border-collapse: collapse;
+        }
+        th,
+        td {
+          border: 1px solid #ddd;
+          padding: 8px;
+        }
+        th {
+          background-color: #f2f2f2;
+          text-align: left;
+        }
+        tr:nth-child(even) {
+          background-color: #f9f9f9;
+        }
+        tr:hover {
+          background-color: #f1f1f1;
+        }
+        form {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin-bottom: 20px;
+        }
+        label {
+          margin-bottom: 10px;
+        }
+        input,
+        select {
+          margin-bottom: 20px;
+          padding: 10px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+        }
+        button {
+          padding: 10px 20px;
+          border: none;
+          border-radius: 5px;
+          background-color: #4caf50;
+          color: #fff;
+          cursor: pointer;
+        }
+        button:hover {
+          background-color: #3e8e41;
+        }
+      `}</style>
     </div>
   );
 };

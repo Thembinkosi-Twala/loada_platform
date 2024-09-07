@@ -1,12 +1,11 @@
 import { useRouter } from "next/router";
-import { categories } from "../../constants"; // Adjust path as necessary
+import { categories } from "@/constants";
 import React from "react";
 
 const CategoryPage = () => {
   const router = useRouter();
   const { category } = router.query;
 
-  // Ensure category is a string before using it
   const categoryString = typeof category === "string" ? category : "";
 
   const selectedCategory = categories.find(
