@@ -47,6 +47,23 @@ export default async function RootLayout({
             </main>
           </div>
         </QueryProvider>
+        {/* Footer */}
+        <footer className="bg-gray-800 text-white py-4 text-center mt-auto">
+          {" "}
+          {/* mt-auto ensures footer stays at the bottom */}
+          <p className="text-sm">
+            &copy; {new Date().getFullYear()} Loada Platform. All rights
+            reserved.
+          </p>
+          <div className="flex justify-center space-x-4 mt-2">
+            <a href="/privacy-policy" className="text-sm hover:underline">
+              Privacy Policy
+            </a>
+            <a href="/terms-of-service" className="text-sm hover:underline">
+              Terms of Service
+            </a>
+          </div>
+        </footer>
       </body>
     </html>
   );

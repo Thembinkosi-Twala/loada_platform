@@ -7,7 +7,7 @@ import { categories } from "../../constants"; // Adjust path as necessary
 interface ListingsProps {
   currentUser: User | null;
 }
-
+ 
 const Listings: FC<ListingsProps> = ({ currentUser }) => {
   // Check if the current user is an admin
   const isAdmin = currentUser?.isAdmin || false;
@@ -48,10 +48,40 @@ const Listings: FC<ListingsProps> = ({ currentUser }) => {
           ))}
         </div>
       ) : (
-         <p className="text-center font-bold">
+        <div>
+          <h2 className="text-center font-bold text-xl mb-4">
             The Loada Platform
-          </p>
+            </h2>
+            
+          {/* About Us Section */}
+          <section className="mb-6 text-center">
+            <h3 className="text-lg font-semibold mb-2">About Us</h3>
+            <p className="text-sm text-gray-600">
+              Loada is a platform designed to streamline cargo management,
+              booking, and tracking for logistics companies and fleet operators.
+              Our mission is to provide an efficient and user-friendly platform
+              for managing all aspects of cargo operations.
+            </p>
+          </section>
+          {/* Contact Us Section */}
+          <section className="text-center">
+            <h3 className="text-lg font-semibold mb-2">Contact Us</h3>
+            <p className="text-sm text-gray-600">
+              Have questions or need assistance? Reach out to us at:{" "}
+              <a
+                href="mailto:support@loada.com"
+                className="text-blue-500 hover:underline"
+              >
+                support@loada.com
+              </a>
+            </p>
+            <p className="text-sm text-gray-600">
+              Or call us: <span className="font-medium">(123) 456-7890</span>
+            </p>
+          </section>
+        </div>
       )}
+      
     </div>
   );
 };
