@@ -2,11 +2,10 @@ import { useEffect, useState } from "react";
 import { Container } from "@prisma/client";
 import ContainerForm from "@/components/ContainerForm";
 
-
 interface containerManagementProps{
   container: Container | null;
 }
-const ContainerManagement :FC<containerManagementProps>= ({container}) => {
+const ContainerManagement = () => {
   const [containers, setContainers] = useState<Container[]>([]);
   const [newContainerName, setNewContainerName] = useState("");
   const [newContainerStatus, setNewContainerStatus] = useState("");
