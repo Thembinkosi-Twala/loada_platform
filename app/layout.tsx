@@ -2,7 +2,6 @@ import { Suspense } from "react";
 import { Nunito } from "next/font/google";
 import "./globals.css";
 import "react-loading-skeleton/dist/skeleton.css";
-
 import Navbar from "@/components/navbar/Navbar";
 import RegisterModal from "@/components/modals/RegisterModal";
 import LoginModal from "@/components/modals/LoginModal";
