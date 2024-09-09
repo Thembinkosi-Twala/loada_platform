@@ -20,7 +20,6 @@ contactPersonPhone String
 bankDetails Json
 password String
 isAdmin Boolean @default(false)
-bookings Booking[]
 helpdeskTickets HelpdeskTicket[]
 }
 
@@ -50,14 +49,12 @@ size String
 type String
 status String
 location String
-bookings Booking[]
 }
 
 model Timeslot {
 id String @id @default(auto()) @map("_id") @db.ObjectId
 date String
 time String
-bookings Booking[]
 }
 
 model HelpdeskTicket {
@@ -83,7 +80,6 @@ model Company {
   email      String    @unique
   phone      String
   trucks     Truck[]
-  bankDetails BankDetails[]
 }
 
 model BankDetails {
