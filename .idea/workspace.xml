@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="f765a393-f56a-4303-83ee-ed2056bc7ffd" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.eslintrc.json" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintrc.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.hintrc" beforeDir="false" afterPath="$PROJECT_DIR$/.hintrc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/listings/Listings.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/listings/Listings.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/navbar/UserMenu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/navbar/UserMenu.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/constants/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/constants/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/next.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/next.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/categories/cargo-cranes.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/categories/cargo-tracking.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/categories/container-management.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/categories/delivery-drones.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/categories/fleet-management.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/categories/shipping.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/categories/truck-maintenance.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/categories/truck-management.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/categories/warehouse-management.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/schema.prisma" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="C:\Program Files (x86)\php-8.3.2-nts-Win32-vs16-x86\php.exe" />
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 2
+}]]></component>
+  <component name="ProjectId" id="2lqedMWgBYpF5cY6fmQpmauUM7s" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "nodejs_package_manager_path": "npm"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-PS-241.15989.102" />
+        <option value="bundled-php-predefined-ba97393d7c68-c76157a7178b-com.jetbrains.php.sharedIndexes-PS-241.15989.102" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f765a393-f56a-4303-83ee-ed2056bc7ffd" name="Changes" comment="" />
+      <created>1725912132406</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1725912132406</updated>
+      <workItem from="1725912137265" duration="146000" />
+    </task>
+    <servers />
+  </component>
+</project>

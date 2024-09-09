@@ -53,3 +53,25 @@ prisma db push
 
 # cmd if you have any problems
 Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted
+
+
+# page.tsx
+<!-- import React from "react";
+import Container from "@/components/Container";
+import { getCurrentUser } from "@/actions/getCurrentUser";
+import Listings from "@/components/listings/Listings";
+import Dashboard from "@/pages/dashboard";
+
+export const dynamic = "force-dynamic"; // Ensure this is set according to your use case
+
+const Home = async () => {
+    const currentUser = await getCurrentUser();
+
+    return (
+        <Container>
+            <Dashboard />
+        </Container>
+    );
+};
+
+export default Home; -->

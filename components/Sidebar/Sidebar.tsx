@@ -1,80 +1,35 @@
-"use client"; // Ensure this is at the top
+import Link from "next/link";
+import { categories } from "@/constants"; // Import the categories array
+import { FC } from "react";
+import { User } from "@prisma/client";
 
-import { TbBox } from "react-icons/tb";
-import { GiCalendar, GiTruck, GiDeliveryDrone } from "react-icons/gi";
-import { FaShippingFast, FaTruckMoving, FaWarehouse } from "react-icons/fa";
-import { IoMdBuild } from "react-icons/io";
-import { useRouter } from "next/navigation";
+interface SidebarProps {
+  currentUser: User | null;
+  className: '';
+  children: '';
+}
 
-export const categories = [
-  {
-    label: "Container Management",
-    icon: TbBox,
-    href: "/categories/container-management",
-  },
-  {
-    label: "Booking Slots",
-    icon: GiCalendar,
-    href: "/categories/booking-slots",
-  },
-  {
-    label: "Truck Management",
-    icon: GiTruck,
-    href: "/categories/truck-management",
-  },
-  {
-    label: "Cargo Tracking",
-    icon: FaTruckMoving,
-    href: "/categories/cargo-tracking",
-  },
-  {
-    label: "Warehouse Management",
-    icon: FaWarehouse,
-    href: "/categories/warehouse-management",
-  },
-  {
-    label: "Shipping",
-    icon: FaShippingFast,
-    href: "/categories/shipping",
-  },
-  {
-    label: "Truck Maintenance",
-    icon: IoMdBuild,
-    href: "/categories/truck-maintenance",
-  },
-  {
-    label: "Delivery Drones",
-    icon: GiDeliveryDrone,
-    href: "/categories/delivery-drones",
-  },
-  {
-    label: "Fleet Management",
-    icon: FaTruckMoving,
-    href: "/categories/fleet-management",
-  },
-];
+const Sidebar: FC<SidebarProps> = ({ currentUser, className, children }) => {
+  const isAdmin = currentUser?.isAdmin || false;
 
-const Sidebar = () => {
-  const router = useRouter(); // Use router from next/navigation
+  // Filter categories based on admin access
+  const filteredCategories = categories.filter(
+    (category) => !category.adminOnly || (category.adminOnly && isAdmin)
+  );
 
   return (
-    <div className="w-64 h-screen bg-gray-800 text-white fixed">
-      <div className="p-4 font-bold text-xl">Dashboard</div>
-      <ul className="mt-4 space-y-2">
-        {categories.map((category) => (
-          <li key={category.label}>
-            <button
-              className="w-full text-left"
-              onClick={() => router.push(category.href)}
-            >
-              <div className="flex items-center p-4 hover:bg-gray-700 transition">
-                <category.icon className="text-2xl mr-3" />
-                {category.label}
-              </div>
-            </button>
+    <div className={className}>
+      <ul>
+        {filteredCategories.map((category) => (
+          <li key={category.label} className="mb-4">
+            <Link href={category.href} className="flex items-center space-x-3 hover:bg-gray-700 p-2 rounded-lg transition">
+              <category.icon className="text-2xl" />
+              <span>{category.label}</span>
+            </Link>
           </li>
         ))}
       </ul>
+      {children && <div>{children}</div>} 
     </div>
   );
 };

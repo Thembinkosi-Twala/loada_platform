@@ -10,33 +10,33 @@ export const categories = [
     label: "Container Management",
     icon: TbBox,
     description: "Manage and track your containers.",
-    href: "/categories/container-management",
+    href: "/container-management",
     adminOnly: true, // Visible only to admins
   },
   {
-    label: "Booking Slots",
+    label: "Booking",
     icon: GiCalendar,
     description: "Manage your booking slots efficiently.",
-    href: "/categories/booking-slots",
+    href: "/booking",
   },
   {
     label: "Truck Management",
     icon: GiTruck,
     description: "Manage and track your fleet of trucks.",
-    href: "/categories/truck-management",
+    href: "/truck-management",
   },
   {
     label: "Cargo Tracking",
     icon: FaTruckMoving,
     description: "Track the real-time status of your cargo.",
-    href: "/categories/cargo-tracking",
+    href: "/cargo-tracking",
   },
   {
     label: "Warehouse Management",
     icon: FaWarehouse,
     description: "Oversee warehouse operations and stock levels.",
-    href: "/categories/warehouse-management",
-    adminOnly: true, // Visible only to admins
+    href: "/warehouse-management",
+    adminOnly: true,
   },
   {
     label: "Shipping",
@@ -48,20 +48,20 @@ export const categories = [
     label: "Truck Maintenance",
     icon: IoMdBuild,
     description: "Track and manage truck maintenance schedules.",
-    href: "/categories/truck-maintenance",
+    href: "/truck-maintenance",
   },
   {
     label: "Delivery Drones",
     icon: GiDeliveryDrone,
     description: "Utilize drones for fast and efficient deliveries.",
-    href: "/categories/delivery-drones",
+    href: "/delivery-drones",
     adminOnly: true, // Visible only to admins
   },
   {
     label: "Fleet Management",
     icon: FaTruckMoving,
     description: "Oversee and manage the entire fleet of vehicles.",
-    href: "/categories/fleet-management",
+    href: "/fleet-management",
     adminOnly: true, // Visible only to admins
   },
 ];

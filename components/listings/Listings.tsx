@@ -2,12 +2,14 @@
 import React, { FC } from "react";
 import { User } from "@prisma/client";
 import Link from "next/link";
-import { categories } from "../../constants"; // Adjust path as necessary
+import { categories } from "@/constants"; // Adjust path as necessary
+import Sidebar from "../Sidebar/Sidebar";
+import HelpdeskButton from "@/components/HelpdeskButton";
 
 interface ListingsProps {
   currentUser: User | null;
 }
- 
+
 const Listings: FC<ListingsProps> = ({ currentUser }) => {
   // Check if the current user is an admin
   const isAdmin = currentUser?.isAdmin || false;
@@ -16,19 +18,29 @@ const Listings: FC<ListingsProps> = ({ currentUser }) => {
   const filteredCategories = categories.filter(
     (category) => !category.adminOnly || (category.adminOnly && isAdmin)
   );
+
   return (
-    <div className="flex-grow p-4">
-      <div className="mb-4">
-        {/* <h1 className="text-2xl font-bold mb-2">Dashboard</h1> */}
+
+    <div className="flex-grow p-4 mb-4">
+      <div className="flex justify-between mb-4">
+        <div>
+          {currentUser ? (
+            <div className="flex items-center space-x-2">
+              <p className="text-lg font-medium">Welcome,</p>
+              <span className="bg-blue-500 text-white text-sm font-semibold py-1 px-3 rounded-full">
+                {currentUser.name}
+              </span>
+            </div>
+          ) : (
+            <p className="text-center">Please log in to access the dashboard.</p>
+          )}
+        </div>
         {currentUser ? (
-          <div className="flex items-center space-x-2">
-            <p className="text-lg font-medium">Welcome,</p>
-            <span className="bg-blue-500 text-white text-sm font-semibold py-1 px-3 rounded-full">
-              {currentUser.name}
-            </span>
+          <div className="text-end">
+            <HelpdeskButton />
           </div>
         ) : (
-          <p className="text-center">Please log in to access the dashboard.</p>
+          <p>join us</p>
         )}
       </div>
       {currentUser ? (
@@ -48,11 +60,12 @@ const Listings: FC<ListingsProps> = ({ currentUser }) => {
           ))}
         </div>
       ) : (
+
         <div>
           <h2 className="text-center font-bold text-xl mb-4">
             The Loada Platform
-            </h2>
-            
+          </h2>
+
           {/* About Us Section */}
           <section className="mb-6 text-center">
             <h3 className="text-lg font-semibold mb-2">About Us</h3>
@@ -76,12 +89,12 @@ const Listings: FC<ListingsProps> = ({ currentUser }) => {
               </a>
             </p>
             <p className="text-sm text-gray-600">
-              Or call us: <span className="font-medium">(123) 456-7890</span>
+              <HelpdeskButton />
             </p>
           </section>
         </div>
       )}
-      
+
     </div>
   );
 };

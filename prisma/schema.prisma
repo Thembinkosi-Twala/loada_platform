@@ -31,17 +31,16 @@ CANCELED
 }
 
 model Booking {
-id String @id @default(auto()) @map("_id") @db.ObjectId
-user User @relation(fields: [userId], references: [id])
-userId String @db.ObjectId
-container Container @relation(fields: [containerId], references: [id])
-containerId String @db.ObjectId
-timeslot Timeslot @relation(fields: [timeslotId], references: [id])
-timeslotId String @db.ObjectId
-status BookingStatus @default(PENDING)
+id              String        @id @default(auto()) @map("_id") @db.ObjectId
+userId          String        @db.ObjectId
+containerId     String        @db.ObjectId
+timeslotId      String        @db.ObjectId
+status          BookingStatus @default(PENDING)
 referenceNumber String
-createdAt DateTime @default(now())
-updatedAt DateTime @updatedAt
+towerLocation   String
+truckId         String        @db.ObjectId
+createdAt       DateTime      @default(now())
+updatedAt       DateTime      @updatedAt
 }
 
 model Container {
@@ -73,4 +72,36 @@ updatedAt DateTime @updatedAt
 model Collector {
 id String @id @default(auto()) @map("_id") @db.ObjectId
 name String
+}
+
+model Company {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  regNumber  String    @unique
+  address    String
+  contact    String
+  email      String    @unique
+  phone      String
+  trucks     Truck[]
+  bankDetails BankDetails[]
+}
+
+model BankDetails {
+  id           String  @id @default(auto()) @map("_id") @db.ObjectId
+  accountName  String
+  bankName     String
+  accountNumber String
+  branchCode   String
+  companyId    String  @db.ObjectId
+}
+
+model Truck {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  license   String   @unique
+  make      String
+  model     String
+  year      Int
+  tracker   String
+  companyId String  @db.ObjectId
+  company   Company @relation(fields: [companyId], references: [id])
 }

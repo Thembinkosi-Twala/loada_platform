@@ -1,25 +1,21 @@
 import React from "react";
 import { GetServerSideProps } from "next";
-import { categories } from "../../constants"; // Adjust path as necessary
-
-interface Category {
-  label: string;
-  icon: React.ComponentType;
-  description: string;
-}
+import { categories } from "../constants"; // Adjust path as necessary
 
 interface Props {
-  category: Category | null;
+  category: {
+    label: string;
+    icon: React.ComponentType;
+    description: string;
+  } | null;
 }
 
-const CargoTrackingPage: React.FC<Props> = ({ category }) => {
+const CargoCranesPage: React.FC<Props> = ({ category }) => {
   if (!category) {
     return (
       <div className="p-4">
         <h1 className="text-2xl font-bold">Category Not Found</h1>
-        <p className="mt-2">
-          The category you&apos;re looking for does not exist.
-        </p>
+        <p className="mt-2">The requested category does not exist.</p>
       </div>
     );
   }
@@ -40,8 +36,12 @@ const CargoTrackingPage: React.FC<Props> = ({ category }) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { category } = context.query;
 
-const selectedCategory =
-  categories.find((cat) => cat.href === category) || null;
+  // Find the category data based on the route parameter
+  const selectedCategory =
+    categories.find(
+      (cat) => cat.label.toLowerCase().replace(/\s+/g, "-") === category
+    ) || null;
+
   return {
     props: {
       category: selectedCategory,
@@ -49,4 +49,4 @@ const selectedCategory =
   };
 };
 
-export default CargoTrackingPage;
+export default CargoCranesPage;
