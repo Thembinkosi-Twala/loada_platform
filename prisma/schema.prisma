@@ -33,7 +33,6 @@ model Booking {
 id              String        @id @default(auto()) @map("_id") @db.ObjectId
 userId          String        @db.ObjectId
 containerId     String        @db.ObjectId
-timeslotId      String        @db.ObjectId
 status          BookingStatus @default(PENDING)
 referenceNumber String
 towerLocation   String
@@ -90,7 +89,11 @@ model BankDetails {
   branchCode   String
   companyId    String  @db.ObjectId
 }
-
+enum TruckStatus {
+Available
+Loading
+In_Transit
+}
 model Truck {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   license   String   @unique
@@ -98,6 +101,7 @@ model Truck {
   model     String
   year      Int
   tracker   String
+  status    TruckStatus @default(Available)
   companyId String  @db.ObjectId
   company   Company @relation(fields: [companyId], references: [id])
 }

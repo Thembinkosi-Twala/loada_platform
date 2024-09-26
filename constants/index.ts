@@ -10,7 +10,7 @@ export const categories = [
     label: "Container Management",
     icon: TbBox,
     description: "Manage and track your containers.",
-    href: "/container-management",
+    href: "/container",
     adminOnly: true, // Visible only to admins
   },
   {
@@ -23,7 +23,7 @@ export const categories = [
     label: "Truck Management",
     icon: GiTruck,
     description: "Manage and track your fleet of trucks.",
-    href: "/truck-management",
+    href: "/truck",
   },
   {
     label: "Cargo Tracking",

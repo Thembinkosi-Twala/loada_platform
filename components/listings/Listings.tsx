@@ -3,7 +3,6 @@ import React, { FC } from "react";
 import { User } from "@prisma/client";
 import Link from "next/link";
 import { categories } from "@/constants"; // Adjust path as necessary
-import Sidebar from "../Sidebar/Sidebar";
 import HelpdeskButton from "@/components/HelpdeskButton";
 
 interface ListingsProps {
