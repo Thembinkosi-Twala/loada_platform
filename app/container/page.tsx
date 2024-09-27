@@ -1,7 +1,7 @@
 "use client";
-import { User } from "@prisma/client";
+
 import { FC, useEffect, useState } from "react";
-import { Container} from "@prisma/client";
+import { Container, User } from "@prisma/client";
 import AddContainerModal from "@/components/modals/AddContainerModal";
 import Link from "next/link";
 
@@ -28,12 +28,10 @@ const ContainerManagement: FC<ContainerManagementProps> = ({ currentUser }) => {
     }, []);
 
     const handleAddContainer = (newContainer: Container) => {
-        // Update containers state to include the new container
         setContainers((prevContainers) => [...prevContainers, newContainer]);
     };
 
     const handleEditContainer = (container: Container) => {
-        // Navigate to edit page or open edit modal with container data
         console.log("Edit container:", container);
     };
 
@@ -43,7 +41,6 @@ const ContainerManagement: FC<ContainerManagementProps> = ({ currentUser }) => {
                 method: "DELETE",
             });
             if (response.ok) {
-                // Update containers state to reflect deletion
                 setContainers((prevContainers) => prevContainers.filter((container) => container.id !== id));
             }
         } catch (error) {
@@ -69,7 +66,6 @@ const ContainerManagement: FC<ContainerManagementProps> = ({ currentUser }) => {
                 Back
             </Link>
             &nbsp;
-            {/* Button to open the modal */}
             <button
                 onClick={handleOpenModal}
                 className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mb-4"
@@ -77,25 +73,20 @@ const ContainerManagement: FC<ContainerManagementProps> = ({ currentUser }) => {
                 Add Container
             </button>
             &nbsp;
-            {/* Button to open the modal */}
             <button
-               
                 className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mb-4"
             >
                 Add Slots
             </button>
 
-
-            {/* Add Container Modal */}
             <AddContainerModal
                 isOpen={isAddContainerModalOpen}
                 onClose={handleCloseModal}
-                onAddContainer={handleAddContainer} // Pass the handler
+                onAddContainer={handleAddContainer}
             />
 
             <h2 className="text-lg font-medium mb-4">Current Containers</h2>
 
-            {/* Check if containers exist */}
             {containers.length === 0 ? (
                 <p>No containers found</p>
             ) : (
