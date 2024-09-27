@@ -7,7 +7,7 @@ interface BookingData {
     containerNumber: React.Dispatch<React.SetStateAction<string[]>>;
     BookingData(BookingData: any): unknown;
     containerId: string;
-    timeslotId: string;
+    timeslot: string;
     referenceNumber: string;
     towerLocation: string;
     truckId: string;
@@ -76,7 +76,7 @@ const BookingModal: React.FC<BookingModalProps> = ({
             <div className="mb-4">
                 <label className="block text-gray-700">Select Time Slot</label>
                 <select
-                    {...register("timeslotId", { required: true })}
+                    {...register("timeslot", { required: true })}
                     className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded"
                 >
                     <option value="">Select a time slot</option>

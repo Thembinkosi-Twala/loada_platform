@@ -33,6 +33,7 @@ model Booking {
 id              String        @id @default(auto()) @map("_id") @db.ObjectId
 userId          String        @db.ObjectId
 containerId     String        @db.ObjectId
+timeslot        String 
 status          BookingStatus @default(PENDING)
 referenceNumber String
 towerLocation   String

@@ -7,11 +7,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method === 'POST') {
     try {
       // Destructure necessary fields from the request body
-      const { userId, containerId, timeslotId, towerLocation, truckId } = req.body;
+      const { userId, containerId, timeslot, towerLocation, truckId } = req.body;
 
       // Validate data
-      if (!userId || !containerId || !timeslotId || !towerLocation || !truckId) {
-        return res.status(400).json({ message: 'All fields are required' });
+      if (!userId || !containerId || !towerLocation || !truckId) {
+        return res.status(400).json({ message: 'All required fields must be provided' });
+      }
+
+      // If you need timeslotId to be validated, ensure it is in the schema, otherwise remove this validation
+      if (!timeslot) {
+        return res.status(400).json({ message: 'timeslotId is required' });
       }
 
       // Generate reference number (you can modify this logic as needed)
@@ -22,7 +27,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         data: {
           userId,
           containerId,
-          timeslotId,
           referenceNumber,
           towerLocation,
           truckId,
