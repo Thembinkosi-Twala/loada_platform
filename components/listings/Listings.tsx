@@ -31,7 +31,7 @@ const Listings: FC<ListingsProps> = ({ currentUser }) => {
               </span>
             </div>
           ) : (
-            <p className="text-center">Please log in to access the dashboard.</p>
+            <p className="text-center"></p>
           )}
         </div>
         {currentUser ? (
@@ -39,7 +39,7 @@ const Listings: FC<ListingsProps> = ({ currentUser }) => {
             <HelpdeskButton />
           </div>
         ) : (
-          <p>join us</p>
+          <p></p>
         )}
       </div>
       {currentUser ? (
