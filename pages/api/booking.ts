@@ -7,7 +7,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method === 'POST') {
     try {
       // Destructure necessary fields from the request body
-      const { userId, containerId, timeslot, towerLocation, truckId } = req.body;
+      const { userId, containerId, timeslotId, towerLocation, truckId } = req.body;
 
       // Validate data
       if (!userId || !containerId || !towerLocation || !truckId) {
@@ -15,7 +15,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
 
       // If you need timeslotId to be validated, ensure it is in the schema, otherwise remove this validation
-      if (!timeslot) {
+      if (!timeslotId) {
         return res.status(400).json({ message: 'timeslotId is required' });
       }
 
@@ -25,11 +25,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       // Insert data into the database
       const newBooking = await prisma.booking.create({
         data: {
-          userId,
-          containerId,
-          referenceNumber,
-          towerLocation,
-          truckId,
+          userId,            // Ensure userId is included
+          containerId,       // Ensure containerId is included
+          truckId,           // Ensure truckId is included
+          referenceNumber,   // Automatically generated
+          towerLocation,     // Provided in the request
           status: 'PENDING', // Default status
         },
       });
