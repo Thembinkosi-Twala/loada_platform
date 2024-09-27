@@ -1,10 +1,10 @@
 "use client"; // Ensure this component is client-side
-import React, { useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import BookingModal from "@/components/modals/BookingModal"; // Import your BookingModal component
 import Link from "next/link";
 
 interface BookingData {
-    containerNumber: string;
+    containerNumber: ReactNode;
     containerId: string;
     timeslotId: string;
     referenceNumber: string;
@@ -114,10 +114,12 @@ const Booking = () => {
                 onClose={() => setIsModalOpen(false)}
                 onBookingSubmit={(newBooking) => {
                     newBooking.referenceNumber = referenceNumber; // Assign the generated reference number to the new booking
+                    newBooking.containerNumber = containerNumbers[0]; // Ensure containerNumber is assigned (replace [0] with correct logic)
                     handleBookingSubmit(newBooking);
                 }}
                 containerNumbers={containerNumbers}
             />
+
             <table className="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
                 <thead>
                     <tr className="bg-gray-100 text-gray-700">

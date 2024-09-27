@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form"; // Assuming you're using react-hook-f
 
 // Define the structure for booking data
 interface BookingData {
+    containerNumber: React.Dispatch<React.SetStateAction<string[]>>;
     BookingData(BookingData: any): unknown;
     containerId: string;
     timeslotId: string;
