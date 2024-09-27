@@ -11,6 +11,7 @@ interface BookingData {
     referenceNumber: string;
     towerLocation: string;
     truckId: string;
+    status: string;
 }
 
 interface BookingModalProps {

@@ -115,7 +115,7 @@ const Booking = () => {
                 onBookingSubmit={(newBooking) => {
                     newBooking.referenceNumber = referenceNumber; // Assign the generated reference number
                     newBooking.containerNumber = setContainerNumbers; // Make sure containerNumber is set
-                    handleBookingSubmit(newBooking);
+                   
                 }}
 
                 containerNumbers={containerNumbers}
