@@ -1,7 +1,7 @@
 "use client";
-
+import { User } from "@prisma/client";
 import { FC, useEffect, useState } from "react";
-import { Container, User } from "@prisma/client";
+import { Container} from "@prisma/client";
 import AddContainerModal from "@/components/modals/AddContainerModal";
 import Link from "next/link";
 
