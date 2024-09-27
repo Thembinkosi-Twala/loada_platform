@@ -113,10 +113,11 @@ const Booking = () => {
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
                 onBookingSubmit={(newBooking) => {
-                    newBooking.referenceNumber = referenceNumber; // Assign the generated reference number to the new booking
-                    newBooking.containerNumber = containerNumbers[0]; // Ensure containerNumber is assigned (replace [0] with correct logic)
+                    newBooking.referenceNumber = referenceNumber; // Assign the generated reference number
+                    newBooking.containerNumber = setContainerNumbers; // Make sure containerNumber is set
                     handleBookingSubmit(newBooking);
                 }}
+
                 containerNumbers={containerNumbers}
             />
 
