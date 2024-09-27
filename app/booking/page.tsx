@@ -4,7 +4,7 @@ import BookingModal from "@/components/modals/BookingModal"; // Import your Book
 import Link from "next/link";
 
 interface BookingData {
-    containerNumber: ReactNode;
+    containerNumber: string;
     containerId: string;
     timeslotId: string;
     referenceNumber: string;
