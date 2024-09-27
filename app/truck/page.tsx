@@ -76,7 +76,7 @@ const TruckManagement = () => {
                                 ))
                             ) : (
                                 <tr>
-                                    <td colSpan="5" className="border border-gray-300 px-4 py-2 text-center">No trucks registered</td>
+                                    <td colSpan={5} className="border border-gray-300 px-4 py-2 text-center">No trucks registered</td>
                                 </tr>
                             )}
                         </tbody>
