@@ -6,23 +6,23 @@ const prisma = new PrismaClient();
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
     try {
-      const { license, make, model, year, status,tracker } = req.body;
+      const { license, make, model, year, status, tracker, company } = req.body;
 
       // Validate data
-      if (!license || !make || !model || !year || !status ||!tracker) {
+      if (!license || !make || !model || !year || !status || !tracker || !company) {
         return res.status(400).json({ message: 'All fields are required' });
       }
 
       // Insert data into the database
       const newTruck = await prisma.truck.create({
         data: {
-            license,
-            make,
-            model,
-            year,
-            status,
-            tracker,
-            
+          license,
+          make,
+          model,
+          year,
+          status,
+          tracker,
+          company, // Ensure company is passed
         },
       });
 
