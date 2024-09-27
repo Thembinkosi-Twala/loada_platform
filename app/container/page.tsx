@@ -6,10 +6,10 @@ import AddContainerModal from "@/components/modals/AddContainerModal";
 import Link from "next/link";
 
 interface ContainerManagementProps {
-    currentUser: User | null;
+    // currentUser: User | null;
 }
 
-const ContainerManagement: FC<ContainerManagementProps> = ({ currentUser }) => {
+const ContainerManagement: FC<ContainerManagementProps> = ({ /*currentUser */}) => {
     const [containers, setContainers] = useState<Container[]>([]);
     const [isAddContainerModalOpen, setIsAddContainerModalOpen] = useState(false);
 
@@ -23,7 +23,7 @@ const ContainerManagement: FC<ContainerManagementProps> = ({ currentUser }) => {
                 console.error("Failed to fetch containers:", error);
             }
         };
-
+        
         fetchContainers();
     }, []);
 
