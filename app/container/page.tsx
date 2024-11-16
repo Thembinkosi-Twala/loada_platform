@@ -9,7 +9,7 @@ interface ContainerManagementProps {
     // currentUser: User | null;
 }
 
-const ContainerManagement: FC<ContainerManagementProps> = ({ /*currentUser */}) => {
+const ContainerManagement: FC<ContainerManagementProps> = ({ /*currentUser*/ }) => {
     const [containers, setContainers] = useState<Container[]>([]);
     const [isAddContainerModalOpen, setIsAddContainerModalOpen] = useState(false);
 
@@ -27,9 +27,27 @@ const ContainerManagement: FC<ContainerManagementProps> = ({ /*currentUser */}) 
         fetchContainers();
     }, []);
 
-    const handleAddContainer = (newContainer: Container) => {
-        setContainers((prevContainers) => [...prevContainers, newContainer]);
+    const handleAddContainer = async (newContainer: Container) => {
+        try {
+            const response = await fetch("/api/containers", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(newContainer),
+            });
+    
+            if (response.ok) {
+                const addedContainer = await response.json();
+                setContainers((prevContainers) => [...prevContainers, addedContainer]);
+            } else {
+                console.error("Failed to add container:", response.statusText);
+            }
+        } catch (error) {
+            console.error("Failed to add container:", error);
+        }
     };
+    
 
     const handleEditContainer = (container: Container) => {
         console.log("Edit container:", container);
@@ -37,17 +55,19 @@ const ContainerManagement: FC<ContainerManagementProps> = ({ /*currentUser */}) 
 
     const handleDeleteContainer = async (id: string) => {
         try {
-            const response = await fetch(`/api/containers/${id}`, {
+            const response = await fetch(`/api/containers/${id}`, {  // Pass id dynamically here
                 method: "DELETE",
             });
             if (response.ok) {
                 setContainers((prevContainers) => prevContainers.filter((container) => container.id !== id));
+            } else {
+                console.error("Failed to delete container:", await response.json());
             }
         } catch (error) {
             console.error("Failed to delete container:", error);
         }
     };
-
+    
     const handleOpenModal = () => {
         setIsAddContainerModalOpen(true);
     };
@@ -73,11 +93,11 @@ const ContainerManagement: FC<ContainerManagementProps> = ({ /*currentUser */}) 
                 Add Container
             </button>
             &nbsp;
-            <button
+            {/* <button
                 className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mb-4"
             >
                 Add Slots
-            </button>
+            </button> */}
 
             <AddContainerModal
                 isOpen={isAddContainerModalOpen}
@@ -94,7 +114,9 @@ const ContainerManagement: FC<ContainerManagementProps> = ({ /*currentUser */}) 
                     <thead>
                         <tr className="bg-gray-200">
                             <th className="px-4 py-2 border border-gray-300">Container Number</th>
+                            <th className="px-4 py-2 border border-gray-300">Type</th>
                             <th className="px-4 py-2 border border-gray-300">Status</th>
+                            <th className="px-4 py-2 border border-gray-300">Size</th>
                             <th className="px-4 py-2 border border-gray-300">Location</th>
                             <th className="px-4 py-2 border border-gray-300">Action</th>
                         </tr>
@@ -103,7 +125,9 @@ const ContainerManagement: FC<ContainerManagementProps> = ({ /*currentUser */}) 
                         {containers.map((container) => (
                             <tr key={container.id} className="odd:bg-gray-100 even:bg-gray-50">
                                 <td className="px-4 py-2 border border-gray-300">{container.containerNumber}</td>
+                                <td className="px-4 py-2 border border-gray-300">{container.type}</td>
                                 <td className="px-4 py-2 border border-gray-300">{container.status}</td>
+                                <td className="px-4 py-2 border border-gray-300">{container.size}</td>
                                 <td className="px-4 py-2 border border-gray-300">{container.location}</td>
                                 <td className="px-4 py-2 border border-gray-300">
                                     <button

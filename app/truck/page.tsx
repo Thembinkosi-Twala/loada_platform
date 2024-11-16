@@ -14,15 +14,31 @@ const TruckManagement = () => {
     const handleCloseModal = () => {
         setIsAddTruckModalOpen(false);
     };
+  
+    const handleAddTruck = async (truckData: { license: string; make: string; model: string; year: number }) => {
+        try {
+            const response = await fetch("/api/addTrucks", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(truckData),
+            });
 
-    const handleAddTruck = (truckData: { licensePlate: string; make: string; model: string; year: number }) => {
-        // Logic to handle adding the truck goes here
-        console.log("Truck added:", truckData);
+            if (!response.ok) {
+                throw new Error("Failed to add truck");
+            }
+
+            const newTruck = await response.json();
+            console.log("Truck added:", newTruck);
+        } catch (error) {
+            console.error("Error adding truck:", error);
+        }
     };
+
     const trucks = [
         { licensePlate: 'ABC123', make: 'Ford', model: 'F-150', year: 2020, status: 'Available' },
         { licensePlate: 'XYZ456', make: 'Chevrolet', model: 'Silverado', year: 2021, status: 'In Transit' },
-        // Add more truck objects as needed
     ];
 
     return (
@@ -48,7 +64,6 @@ const TruckManagement = () => {
                 onAddTruck={handleAddTruck}
             />
 
-            {/* Additional UI elements to manage trucks could be placed here */}
             <div className="flex-grow p-4 mb-10">
                 <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center">Registered Trucks</h2>
 
@@ -84,8 +99,6 @@ const TruckManagement = () => {
                 </div>
             </div>
         </div>
-        
-
     );
 };
 

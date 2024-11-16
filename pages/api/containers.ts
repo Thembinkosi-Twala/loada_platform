@@ -7,13 +7,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method === 'POST') {
     try {
       const { containerNumber, size, type, status, location } = req.body;
-      
+
       // Validate data
       if (!containerNumber || !size || !type || !status || !location) {
         return res.status(400).json({ message: 'All fields are required' });
       }
 
-      // Insert data into the database
+      // Insert data into MongoDB through Prisma
       const newContainer = await prisma.container.create({
         data: {
           containerNumber,
@@ -26,6 +26,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       res.status(201).json(newContainer);
     } catch (error) {
+      console.error(error);
       res.status(500).json({ message: 'Something went wrong' });
     }
   } else {

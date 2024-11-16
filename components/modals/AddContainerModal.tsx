@@ -20,9 +20,20 @@ const statusOptions = [
     "Returned",
 ];
 
+const containerTypes = [
+    "General Cargo",
+    "Bulk Cargo",
+    "Tanker Cargo",
+    "Ro-Ro Cargo",
+    "Containerized Cargo",
+    "Liquid Bulk Cargo",
+    "Dry Bulk Cargo",
+    "Livestock Cargo"
+];
+
 // Define the structure for container data
 interface ContainerData {
-    id: "",
+    id: "";
     containerNumber: string;
     size: string; // Added size field
     type: string; // Added type field
@@ -60,11 +71,11 @@ const AddContainerModal: React.FC<AddContainerModalProps> = ({ isOpen, onClose, 
     };
 
     // Define footer content if needed
-    const footerContent = <div>Adding Containers/Cargo</div>;
+    const footerContent = <div>Adding Containers</div>;
 
-    // Define body content (form fields)
+    // Define body content (form fields), without the form tag
     const bodyContent = (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <>
             <div className="mb-4">
                 <label className="block text-gray-700">Container Number</label>
                 <input
@@ -85,14 +96,19 @@ const AddContainerModal: React.FC<AddContainerModalProps> = ({ isOpen, onClose, 
                 />
             </div>
             <div className="mb-4">
-                <label className="block text-gray-700">Type</label>
-                <input
-                    type="text"
-                    {...register("type", { required: true })}
-                    className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded"
-                    placeholder="Enter container type"
-                />
-            </div>
+            <label className="block text-gray-700">Type</label>
+            <select
+                {...register("type", { required: true })}
+                className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded"
+            >
+                <option value="" disabled>Select a container type</option>
+                {containerTypes.map((type) => (
+                    <option key={type} value={type}>
+                        {type}
+                    </option>
+                ))}
+            </select>
+        </div>
             <div className="mb-4">
                 <label className="block text-gray-700">Status</label>
                 <select
@@ -115,7 +131,7 @@ const AddContainerModal: React.FC<AddContainerModalProps> = ({ isOpen, onClose, 
                     placeholder="Enter location"
                 />
             </div>
-        </form>
+        </>
     );
 
     return (

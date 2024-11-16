@@ -11,7 +11,7 @@ const Footer: FC = () => {
               <Link href="/privacy-policy" className="text-xs hover:underline">
                 Privacy Policy
               </Link>
-              <Link href="./TermsOfUse" className="text-xs hover:underline">
+              <Link href="/TermsOfUse" className="text-xs hover:underline">
                 Terms of Service
               </Link>
             </div>

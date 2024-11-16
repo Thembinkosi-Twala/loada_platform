@@ -92,6 +92,7 @@ Available
 Loading
 In_Transit
 }
+
 model Truck {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   license   String   @unique

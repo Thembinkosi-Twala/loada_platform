@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form"; // Assuming you're using react-hook-f
 // Define the structure for truck data
 interface TruckData {
     id: string; // Added id field for truck
-    licensePlate: string;
+    license: string;
     make: string;
     model: string;
     year: number;
@@ -51,7 +51,7 @@ const AddTruckModal: React.FC<AddTruckModalProps> = ({ isOpen, onClose, onAddTru
                 <label className="block text-gray-700">License Plate</label>
                 <input
                     type="text"
-                    {...register("licensePlate", { required: true })}
+                    {...register("license", { required: true })}
                     className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded"
                     placeholder="Enter license plate"
                 />
@@ -81,6 +81,15 @@ const AddTruckModal: React.FC<AddTruckModalProps> = ({ isOpen, onClose, onAddTru
                     {...register("year", { required: true, valueAsNumber: true })}
                     className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded"
                     placeholder="Enter year"
+                />
+            </div>
+            <div className="mb-4">
+                <label className="block text-gray-700">Tracker</label>
+                <input
+                    type="text"
+                    {...register("tracker", { required: true })}
+                    className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded"
+                    placeholder="Enter tracker ID"
                 />
             </div>
         </form>

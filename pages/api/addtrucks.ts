@@ -5,15 +5,14 @@ const prisma = new PrismaClient();
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
+    // Handle adding a new truck
     try {
-      const { license, make, model, year, status, tracker, company } = req.body;
+      const { license, make, model, year, status, company, tracker } = req.body;
 
-      // Validate data
-      if (!license || !make || !model || !year || !status || !tracker || !company) {
+      if (!license || !make || !model || !year || !status || !company || !tracker) {
         return res.status(400).json({ message: 'All fields are required' });
       }
 
-      // Insert data into the database
       const newTruck = await prisma.truck.create({
         data: {
           license,
@@ -21,18 +20,27 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           model,
           year,
           status,
+          company,
           tracker,
-          company, // Ensure company is passed
         },
       });
 
       res.status(201).json(newTruck);
     } catch (error) {
-      console.error('Error adding truck:', error); // Log error for debugging
+      console.error('Error adding truck:', error);
+      res.status(500).json({ message: 'Something went wrong' });
+    }
+  } else if (req.method === 'GET') {
+    // Handle fetching all trucks
+    try {
+      const trucks = await prisma.truck.findMany();
+      res.status(200).json(trucks);
+    } catch (error) {
+      console.error('Error fetching trucks:', error);
       res.status(500).json({ message: 'Something went wrong' });
     }
   } else {
-    res.setHeader('Allow', ['POST']);
+    res.setHeader('Allow', ['POST', 'GET']);
     res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }
