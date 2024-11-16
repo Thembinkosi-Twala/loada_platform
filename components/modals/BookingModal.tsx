@@ -68,7 +68,7 @@ const BookingModal: React.FC<BookingModalProps> = ({
                 <select
                     {...register("timeslot", { required: true })}
                     className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded"
-                >
+                > 
                     <option value="">Select a time slot</option>
                    
                     <option value="slot1">08:00 AM - 09:00 AM</option>
