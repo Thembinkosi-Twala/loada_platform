@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Modal from "./Modal"; // Import the Modal component
 import { useForm } from "react-hook-form"; // Assuming you're using react-hook-form
+import containers from "@/pages/api/containers";
 
 // Define the structure for booking data
 interface BookingData {
@@ -60,18 +61,7 @@ const BookingModal: React.FC<BookingModalProps> = ({
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-4">
                 <label className="block text-gray-700">Container Number</label>
-                <select
-                    {...register("containerId", { required: true })}
-                    className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded"
-                    onChange={(e) => setSelectedContainerId(e.target.value)} // Update selected container
-                >
-                    <option value="">Select a container</option>
-                    {containerNumbers.map((number) => (
-                        <option key={number} value={number}>
-                            {number}
-                        </option>
-                    ))}
-                </select>
+                
             </div>
             <div className="mb-4">
                 <label className="block text-gray-700">Select Time Slot</label>
