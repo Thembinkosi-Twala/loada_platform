@@ -70,7 +70,7 @@ const BookingModal: React.FC<BookingModalProps> = ({
                     className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded"
                 >
                     <option value="">Select a time slot</option>
-                    {/* Hardcoded time slots */}
+                   
                     <option value="slot1">08:00 AM - 09:00 AM</option>
                     <option value="slot2">09:00 AM - 10:00 AM</option>
                     <option value="slot3">10:00 AM - 11:00 AM</option>
