@@ -6,38 +6,56 @@ const prisma = new PrismaClient();
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
     try {
-      // Destructure necessary fields from the request body
-      const { userId, containerId, timeslotId, towerLocation, truckId } = req.body;
+      const { userId, containerId, truckId, towerLocation, timeslotId } = req.body;
 
-      // Validate data
-      if (!userId || !containerId || !towerLocation || !truckId) {
-        return res.status(400).json({ message: 'All required fields must be provided' });
+      // Validate required fields
+      if (!userId || !containerId || !truckId || !towerLocation || !timeslotId) {
+        return res.status(400).json({ message: 'All required fields must be provided.' });
       }
 
-      // If you need timeslotId to be validated, ensure it is in the schema, otherwise remove this validation
-      if (!timeslotId) {
-        return res.status(400).json({ message: 'timeslotId is required' });
-      }
-
-      // Generate reference number (you can modify this logic as needed)
+      // Generate a unique reference number
       const referenceNumber = generateReferenceNumber(containerId);
 
-      // Insert data into the database
+      // Check if the user exists
+      const user = await prisma.user.findUnique({
+        where: { id: userId },
+      });
+      if (!user) {
+        return res.status(404).json({ message: 'User not found.' });
+      }
+
+      // Check if the container exists
+      const container = await prisma.container.findUnique({
+        where: { id: containerId },
+      });
+      if (!container) {
+        return res.status(404).json({ message: 'Container not found.' });
+      }
+
+      // Check if the truck exists
+      const truck = await prisma.truck.findUnique({
+        where: { id: truckId },
+      });
+      if (!truck) {
+        return res.status(404).json({ message: 'Truck not found.' });
+      }
+
+      // Insert the booking into the database
       const newBooking = await prisma.booking.create({
         data: {
-          userId,            // Ensure userId is included
-          containerId,       // Ensure containerId is included
-          truckId,           // Ensure truckId is included
-          referenceNumber,   // Automatically generated
-          towerLocation,     // Provided in the request
+          userId,
+          containerId,
+          truckId,
+          towerLocation,
+          referenceNumber,
           status: 'PENDING', // Default status
         },
       });
 
-      res.status(201).json(newBooking);
+      return res.status(201).json(newBooking);
     } catch (error) {
-      console.error('Error adding booking:', error); // Log error for debugging
-      res.status(500).json({ message: 'Something went wrong' });
+      console.error('Error creating booking:', error);
+      return res.status(500).json({ message: 'Internal server error.' });
     }
   } else {
     res.setHeader('Allow', ['POST']);
@@ -45,9 +63,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 }
 
-// Function to generate reference number
+// Function to generate a unique reference number
 const generateReferenceNumber = (containerId: string): string => {
-  const date = new Date().toISOString().split('T')[0].replace(/-/g, ''); // Format date as YYYYMMDD
-  const randomNumbers = Math.floor(1000 + Math.random() * 9000); // Generate 4 random digits
+  const date = new Date().toISOString().split('T')[0].replace(/-/g, '');
+  const randomNumbers = Math.floor(1000 + Math.random() * 9000);
   return `B${containerId}${date}${randomNumbers}`;
 };

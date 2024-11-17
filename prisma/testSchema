@@ -76,6 +76,7 @@ model Company {
   contact    String
   email      String    @unique
   phone      String
+  trucks     Truck[]
 }
 
 model BankDetails {
@@ -100,4 +101,6 @@ model Truck {
   year      Int
   tracker   String
   status    TruckStatus @default(Available)
+  companyId String  @db.ObjectId
+  company   Company @relation(fields: [companyId], references: [id])
 }

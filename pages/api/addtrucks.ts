@@ -1,46 +1,69 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
-import { PrismaClient } from '@prisma/client';
+// pages/api/trucks.ts
+import { PrismaClient, TruckStatus } from "@prisma/client";
+import type { NextApiRequest, NextApiResponse } from "next";
 
 const prisma = new PrismaClient();
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method === 'POST') {
-    // Handle adding a new truck
-    try {
-      const { license, make, model, year, status, company, tracker } = req.body;
+  // Set proper headers
+  res.setHeader('Content-Type', 'application/json');
 
-      if (!license || !make || !model || !year || !status || !company || !tracker) {
-        return res.status(400).json({ message: 'All fields are required' });
-      }
+  if (req.method !== "POST") {
+    return res.status(405).json({ message: `Method ${req.method} Not Allowed` });
+  }
 
-      const newTruck = await prisma.truck.create({
-        data: {
-          license,
-          make,
-          model,
-          year,
-          status,
-          company,
-          tracker,
-        },
+  try {
+    const { license, make, model, year, tracker, status } = req.body;
+
+    // Validate required fields
+    if (!license || !make || !model || !year || !tracker || !status ) {
+      return res.status(400).json({ 
+        message: "All fields are required." 
       });
+    }
 
-      res.status(201).json(newTruck);
-    } catch (error) {
-      console.error('Error adding truck:', error);
-      res.status(500).json({ message: 'Something went wrong' });
+    // Check if the license is unique
+    const existingTruck = await prisma.truck.findUnique({
+      where: { license },
+    });
+
+    if (existingTruck) {
+      return res.status(409).json({ 
+        message: "A truck with this license plate already exists." 
+      });
     }
-  } else if (req.method === 'GET') {
-    // Handle fetching all trucks
-    try {
-      const trucks = await prisma.truck.findMany();
-      res.status(200).json(trucks);
-    } catch (error) {
-      console.error('Error fetching trucks:', error);
-      res.status(500).json({ message: 'Something went wrong' });
-    }
-  } else {
-    res.setHeader('Allow', ['POST', 'GET']);
-    res.status(405).end(`Method ${req.method} Not Allowed`);
+
+    // Check if company exists
+    // const company = await prisma.company.findUnique({
+    //   where: { id: companyId },
+    // });
+
+    // if (!company) {
+    //   return res.status(404).json({ 
+    //     message: "Company not found." 
+    //   });
+    // }
+
+    // Create new truck
+    const newTruck = await prisma.truck.create({
+      data: {
+        license,
+        make,
+        model,
+        year: Number(year),
+        tracker,
+        status: status as TruckStatus,
+      },
+      include: {
+        company: true
+      }
+    });
+
+    return res.status(201).json(newTruck);
+  } catch (error) {
+    console.error("Server error:", error);
+    return res.status(500).json({ 
+      message: "Internal server error." 
+    });
   }
 }

@@ -62,6 +62,7 @@ const TruckManagement = () => {
                 isOpen={isAddTruckModalOpen}
                 onClose={handleCloseModal}
                 onAddTruck={handleAddTruck}
+                companyId="Company123"
             />
 
             <div className="flex-grow p-4 mb-10">
