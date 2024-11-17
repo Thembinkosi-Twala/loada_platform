@@ -114,11 +114,11 @@ const Booking = () => {
                 onClose={() => setIsModalOpen(false)}
                 onBookingSubmit={(newBooking) => {
                     newBooking.referenceNumber = referenceNumber; // Assign the generated reference number
-                    newBooking.containerNumber = setContainerNumbers; // Make sure containerNumber is set
+                    //newBooking.containerNumber = setContainerNumbers; // Make sure containerNumber is set
                    
                 }}
 
-                containerNumbers={containerNumbers}
+                //containerNumbers={containerNumbers}
             />
 
             <table className="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
