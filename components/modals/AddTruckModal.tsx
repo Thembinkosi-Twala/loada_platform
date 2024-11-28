@@ -50,37 +50,20 @@ const AddTruckModal: React.FC<AddTruckModalProps> = ({
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Accept": "application/json"
         },
         body: JSON.stringify({
           ...data,
-          year: Number(data.year),
-          companyId: companyId
+          year: Number(data.year), // Ensure year is a number
+              // Ensure companyId is included
         }),
       });
-
-      // First check if the response is ok
+  
       if (!response.ok) {
-        // Try to parse error message from response
-        let errorMessage = "Failed to add truck";
-        try {
-          const errorData = await response.json();
-          errorMessage = errorData.message || errorMessage;
-        } catch (e) {
-          // If parsing JSON fails, use status text
-          errorMessage = response.statusText || errorMessage;
-        }
-        throw new Error(errorMessage);
+        const errorResponse = await response.json();
+        throw new Error(errorResponse.message || "Failed to add truck");
       }
-
-      // Try to parse the successful response
-      let newTruck;
-      try {
-        newTruck = await response.json();
-      } catch (e) {
-        throw new Error("Invalid response from server");
-      }
-
+  
+      const newTruck = await response.json();
       onAddTruck(newTruck);
       onClose();
       reset();
@@ -91,6 +74,7 @@ const AddTruckModal: React.FC<AddTruckModalProps> = ({
       setIsLoading(false);
     }
   };
+  
 
   const bodyContent = (
     <div className="flex flex-col gap-4">

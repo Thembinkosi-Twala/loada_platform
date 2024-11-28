@@ -3,6 +3,7 @@ import Modal from "./Modal";
 import { useForm } from "react-hook-form";
 
 interface BookingData {
+  containerNumber: React.Dispatch<React.SetStateAction<string[]>>;
   containerId: string;
   timeslot: string;
   referenceNumber: string;
@@ -54,7 +55,7 @@ const BookingModal: React.FC<BookingModalProps> = ({
       try {
         const response = await fetch("/api/trucks"); // Adjust endpoint as needed
         const data = await response.json();
-        setTruckIds(data.map((truck: any) => truck.id)); // Assuming truck objects have `id`
+        setTruckIds(data.map((truck: any) => truck.make)); // Assuming truck objects have `id`
       } catch (error) {
         console.error("Error fetching truck IDs:", error);
       } finally {
